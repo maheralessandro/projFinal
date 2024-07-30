@@ -32,60 +32,54 @@ const AddProd = () =>{
         quantity : null ,
         productDescription : '' ,
         nameCat : '' ,
-
+        picture:""
     }) ;
-
-    const [image, setImage] = useState('')
 
     const navigate = useNavigate()
     
     const errorNotify = (value) => toast.error(value);
     const sucessNotify =(value)=>toast.success(value)
+
+    
     const handelChange =(e)=>{
         setAddProd({...addProd,[e.target.name]:e.target.value})
     }
 
     const fileChange =(e)=>{
-     setImage(e.target.files)
+     
+      setAddProd({...addProd,[e.target.name]:e.target.files})
+    
     }
- 
+    
     // console.log(addProd);
 
     const handelSubmit=(e)=>{
         e.preventDefault();
-
-        let newProd = {
-            nameProdut : addProd.nameProdut ,
-            price : Number(addProd.price) ,
-            quantity : Number(addProd.quantity) ,
-            productDescription : addProd.productDescription,
-            nameCat : addProd.nameCat ,
-           image: image
-        }
-
-        console.log(newProd);
-        
         let formData = new FormData();
 
-        formData.append("nameProdut", newProd.nameProdut)
-        formData.append("price", newProd.price)
-        formData.append("quantity", newProd.quantity)
-        formData.append("productDescription", newProd.productDescription)
-        formData.append("nameCat", newProd.nameCat)
-        formData.append("picture", newProd.image)
+        formData.append("nameProdut", addProd.nameProdut)
+        formData.append("price", addProd.price)
+        formData.append("quantity", addProd.quantity)
+        formData.append("productDescription", addProd.productDescription)
+        formData.append("nameCat", addProd.nameCat)
+        // formData.append("picture", addProd.picture)
 
+        if (addProd.picture.length != 0) {
+          for (const single_file of addProd.picture) {
+              formData.append('picture', single_file)
+          }}
 
         
-        // addProds(formData)
-        // .then((doc)=>{
+        addProds(formData)
+        .then((doc)=>{
             
-        //     sucessNotify(doc.msg);
-        //     navigate("/")
-        // })
-        // .catch((err)=>{
+            sucessNotify(doc.msg);
+            navigate("/")
+        })
+        .catch((err)=>{
             
-        //     errorNotify(err.response.data.msg)
-        // })
+            errorNotify(err.response.data.msg)
+        })
     }
 
 
@@ -121,7 +115,7 @@ const AddProd = () =>{
         
                 <Form.Group as={Col} controlId="formGridPassword" >
                   <Form.Label>image</Form.Label>
-                  <Form.Control type="file" placeholder="image" name="picture" onChange={fileChange} />
+                  <Form.Control type="file" multiple="multiple" placeholder="image" name="picture" onChange={fileChange} />
                 </Form.Group>
               </Row>
 

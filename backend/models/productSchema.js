@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 
 const productSchema = new mongoose.Schema({
     image : {
-        type : String ,
+        type : [String ],
       
     } ,
     nameProdut : {
@@ -23,6 +23,10 @@ const productSchema = new mongoose.Schema({
     productDescription : {
         type : String ,
         required : true
+    } ,
+    count : {
+        type : Number ,
+        default : 1
     } ,
     postedBy : {
         type : mongoose.Types.ObjectId ,

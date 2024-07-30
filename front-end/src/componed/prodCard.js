@@ -1,11 +1,16 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { addToCart } from '../app/cartSlice';
 
 function ProdCard({prod}) {
-    console.log(prod);
+    
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
   return (
     <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={prod?.image} alt = "prod" />
+      <Card.Img variant="top" src={prod?.image[4]} alt = "prod" />
       <Card.Body>
         <Card.Title>{prod.nameProdut}</Card.Title>
         <Card.Text>
@@ -17,7 +22,8 @@ function ProdCard({prod}) {
           <br/>
           {prod.category?.nameCat}
         </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
+        <Button  onClick={()=>navigate(`/detail/${prod._id}`)} variant="primary">See more</Button>
+        <Button  onClick={()=>dispatch(addToCart(prod))} variant="primary">See more</Button>
       </Card.Body>
     </Card>
   );

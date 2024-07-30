@@ -6,26 +6,29 @@ const Category = require('../models/categorySchema');
 
 
 exports.registerProd = async (req , res) =>{
-    let{image , nameProdut , price , quantity , productDescription , nameCat} = req.body ;
+    let{ nameProdut , price , quantity , productDescription , nameCat} = req.body ;
    
     let user = req.user ;
+    let picture =req.files
+    console.log(picture);
 
-    // console.log(req.body);
-
-    let pic =req.file?.filename
-    console.log(pic);
     try{
 
         let catID = await Category.findOne({nameCat})
-        if( !nameProdut || !price || !quantity || !productDescription || !nameCat ||  !pic){
+        if( !nameProdut || !price || !quantity || !productDescription ||    !picture){
             return res.status(400).json({msg : "is required"})
         }
+ 
+        // hedhi khater walla 3endi tableau des images lezem map wella for
+        let data = picture.map((item)=>{
+            return item.filename
+        })
         
-        let newProdact = new Product({ nameProdut , price , quantity , productDescription , postedBy: user._id , category: catID._id , image:pic});
+        let newProdact = new Product({ nameProdut , price , quantity , productDescription ,category:catID._id, postedBy: user._id , image: data});
         await newProdact.save() ;
 
         
-        res.status(200).json({msg:"registred", newProdact})
+        res.status(200).json({msg:"registred"})
     }catch (error) {
         console.log(error);
        res.status(500).json({msg:"server error from register product"}) 
@@ -84,6 +87,18 @@ exports.allProd =async(req,res)=>{
     .then((doc)=>{
      
      res.status(200).json({msg:"list of all products" , doc})
+    })
+    .catch((err)=>{
+        res.status(500).json({msg:"server error"})
+    })
+}
+
+exports.prodById = async(req,res)=>{
+    let {id} = req.params ;
+    await Product.findById(id).populate("category").populate('postedBy')
+
+    .then((doc)=>{
+        res.status(200).json({msg:"product found" , doc})
     })
     .catch((err)=>{
         res.status(500).json({msg:"server error"})

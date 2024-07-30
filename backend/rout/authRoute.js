@@ -1,9 +1,10 @@
 const express = require('express');
 const { register, login, updatePassword } = require('../handels/auth');
 const { verification } = require('../middelwers/verification');
-const { registerProd, updateProduct, deleteProduct, allProd } = require('../handels/prodManagement');
+const { registerProd, updateProduct, deleteProduct, allProd, prodById } = require('../handels/prodManagement');
 const { registerCat, allCatt, deleteCat, updateCat } = require('../handels/categoryMenagement');
-const multer  = require('multer')
+const multer  = require('multer');
+const { creeteCart } = require('../handels/cardMenagement');
 
 
 const authRouter = express.Router();
@@ -34,10 +35,11 @@ authRouter.post('/login',login);
 authRouter.put('/updatePwd', verification ,updatePassword) ;
 // product routes
 
-authRouter.post('/addprod' , verification , upload.single('picture') , registerProd) ;
+authRouter.post('/addprod' , verification , upload.array('picture',5) , registerProd) ;
 authRouter.put('/updateprod/:id' , verification , updateProduct) ;
 authRouter.delete('/deleteprod/:id' , verification , deleteProduct)
 authRouter.get('/allProd'  , allProd)
+authRouter.get('/prodById/:id' , prodById)
 
 
 // category routes
@@ -46,6 +48,10 @@ authRouter.post('/addcat', verification , registerCat ) ;
 authRouter.get('/allCatt' , allCatt) ;
 authRouter.delete('/deletCat/:id' , deleteCat);
 authRouter.put('/updateCat/:id' , updateCat)
+
+// shopping cart routes
+
+authRouter.post('/creeteCart' , creeteCart)
 
 
 
