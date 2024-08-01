@@ -9,12 +9,15 @@ import AdminRoute from './privateRoutes/adminRoute';
 import AdminDash from './pages/adminDashboard';
 import AddProd from './componed/addProduct';
 import Detail from './componed/detaille';
-import ShoppingCart from './componed/shoppingCard';
+// import ShoppingCart from './componed/shoppingCard';
+
+import NavbarScroll from './componed/navbar';
 
 function App() {
   return (
-    <div>
-      <ShoppingCart/>
+    <div className='app'>
+      <NavbarScroll />
+      {/* <ShoppingCart/> */}
 
       <Routes>
 
@@ -22,7 +25,7 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path="/detail/:id" element={<Detail/>}/>
         <Route element={<UserRoute/>}>
-        <Route path="addProd" element={<AddProd/>}/>
+        <Route path="/addProd" element={<AddProd/>}/>
         <Route path='/' element={<Product/>}/>
         </Route>
 

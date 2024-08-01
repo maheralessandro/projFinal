@@ -23,7 +23,7 @@ function ProdCard({prod}) {
           {prod.category?.nameCat}
         </Card.Text>
         <Button  onClick={()=>navigate(`/detail/${prod._id}`)} variant="primary">See more</Button>
-        <Button  onClick={()=>dispatch(addToCart(prod))} variant="primary">See more</Button>
+        <Button  onClick={()=>dispatch(addToCart(prod))} variant="primary">add shop</Button>
       </Card.Body>
     </Card>
   );

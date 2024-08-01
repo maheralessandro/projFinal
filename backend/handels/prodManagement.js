@@ -19,7 +19,7 @@ exports.registerProd = async (req , res) =>{
             return res.status(400).json({msg : "is required"})
         }
  
-        // hedhi khater walla 3endi tableau des images lezem map wella for
+        
         let data = picture.map((item)=>{
             return item.filename
         })

@@ -4,8 +4,9 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState ={
 
-    items:[] ,
-    cart :[]
+    
+    cart :[],
+   
 }
 
 
@@ -16,17 +17,19 @@ const cartSlice = createSlice({
         addToCart:(state,action)=>{
             let exist = state.cart.findIndex((item)=> item._id === action.payload._id);
 
-            if(exist >= 0 ){
+            if(exist >= 0 && state.cart[exist].quantity >= 1 ){
                 state.cart[exist].count += 1 ;
                 state.cart[exist].quantity -= 1;
-            }else{
-                state.cart.push(action.payload)
+            }if(exist === -1){
+                state.cart.unshift(action.payload)
+                state.cart[0].quantity -=1
             }
+            
         
         },
         increase:(state,action)=>{
             state.cart.map((item)=>{
-                if(item._id === action.payload._id ){
+                if(item._id === action.payload._id && action.payload.quantity >= 1 ){
                     item.count+=1
                     item.quantity -=1
                 }else {
@@ -38,11 +41,13 @@ const cartSlice = createSlice({
             state.cart.map((item)=>{
                 if(item._id === action.payload._id ){
                     item.count -=1
+                    item.quantity +=1
                 }else{
                     return item
                 }
             })
-        }
+        },
+        
 
     }
 

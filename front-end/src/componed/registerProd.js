@@ -31,7 +31,7 @@ const Product =()=>{
   // //   setCart([...cart , produit])
   //  }
   return(
-      <div style={{display:"flex" , justifyContent:"space-around", flexWrap:"wrap"}}>
+      <div style={{display:"flex" , justifyContent:"space-around", flexWrap:"wrap", margin:"50px"}}>
 
         {/* <div>
           {cart.length === 0 ? <h3>empty cart</h3>:

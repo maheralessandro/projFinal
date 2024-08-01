@@ -35,7 +35,7 @@ export const getCategory = async ()=>{
 
 // get card
 
-export const creeteCart = async (values)=>{
+export const bagCart = async (values)=>{
     let{data} = await axios.post("http://localhost:7000/auth/creeteCart" , values)
     return data
 } ;
