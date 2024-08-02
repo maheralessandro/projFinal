@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import { useDispatch, useSelector } from 'react-redux';
-import { decreese, increase  } from '../app/cartSlice';
+import { decreese, imptiCart, increase  } from '../app/cartSlice';
 import { bagCart } from '../api/prodApi';
 
 function ShoppingCart() {
@@ -15,9 +15,10 @@ function ShoppingCart() {
   const dispatch = useDispatch()
 
   const handelCart =()=>{
-    bagCart({cart:result ,confirm :false})
+    bagCart({products:result ,confirm :false})
     .then((doc)=>{
         console.log(doc);
+        dispatch(imptiCart())
     })
     .catch((err)=>{
         console.log(err);

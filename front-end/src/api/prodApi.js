@@ -40,3 +40,14 @@ export const bagCart = async (values)=>{
     return data
 } ;
 
+// add categori
+
+export const addCat = async (values)=>{
+
+    let token = getLocalStorage('token')
+    let {data} = await axios.post("http://localhost:7000/auth/addcat" , values,{headers:{
+        "Authorization":token
+    }}) ;
+    return data
+} ;
+

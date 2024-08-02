@@ -4,7 +4,7 @@ const Category = require('../models/categorySchema')
 
 exports.registerCat = async(req , res) =>{
     let {nameCat} = req.body ;
-    
+    console.log(nameCat);
 
     try {
         if(!nameCat){

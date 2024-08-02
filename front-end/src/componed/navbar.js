@@ -25,7 +25,7 @@ function NavbarScroll() {
           >
             <Nav.Link as={Link}  to='/'>Home</Nav.Link>
             <Nav.Link as={Link} to = '/login'>Login</Nav.Link>
-            <NavDropdown title="Link" id="navbarScrollingDropdown">
+            <NavDropdown title="Shop Bag" id="navbarScrollingDropdown">
               <NavDropdown.Item ><ShoppingCart/></NavDropdown.Item>
               {/* <NavDropdown.Item >
                 Another action
@@ -35,8 +35,8 @@ function NavbarScroll() {
                 Something else here
               </NavDropdown.Item> */}
             </NavDropdown>
-            <Nav.Link href="#" disabled>
-              Link
+            <Nav.Link as={Link} to ="/addProd" >
+              Add Product
             </Nav.Link>
           </Nav>
           <Form className="d-flex">

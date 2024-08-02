@@ -12,6 +12,7 @@ import Detail from './componed/detaille';
 // import ShoppingCart from './componed/shoppingCard';
 
 import NavbarScroll from './componed/navbar';
+import RegisterCat from './componed/registerCat';
 
 function App() {
   return (
@@ -24,13 +25,17 @@ function App() {
         <Route path='/register' element={<Register/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path="/detail/:id" element={<Detail/>}/>
+        <Route path='/' element={<Product/>}/>
+
         <Route element={<UserRoute/>}>
         <Route path="/addProd" element={<AddProd/>}/>
-        <Route path='/' element={<Product/>}/>
         </Route>
 
         <Route element={<AdminRoute/>}>
-         <Route path='/admin' element={<AdminDash/>}/>
+
+         <Route path='/admin/*' element={<AdminDash/>}>
+         <Route path='addcat' element={<RegisterCat/>}/>
+        </Route>
         </Route>
       </Routes>
      

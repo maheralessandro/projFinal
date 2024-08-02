@@ -5,13 +5,17 @@ const Product = require('../models/productSchema') ;
 exports.creeteCart = async(req , res)=>{
     let {products , totalPrice} = req.body ;
 
+
+    // console.log(products);
      let prixTot = 0 ;
     for(let i = 0 ; i < products.length ; i++){
       
-        let data = await Product.findById(products[i].prod);
-        // console.log(data.price);
+        // console.log(products[i].prod);
+        // let data = await Product.findById(products[i]._id);
+        
+        
 
-        prixTot += data.price * products[i].count
+        prixTot += products[i].price * products[i].count
 
     }
 
@@ -19,8 +23,8 @@ exports.creeteCart = async(req , res)=>{
     
 
     try {
-        // let newCart = new Cart({products , totalPrice})
-        // await newCart.save() ;
+        let newCart = new Cart({products , totalPrice:prixTot})
+        await newCart.save() ;
         res.status(200).json({msg:'cart creeted'})
         
     } catch (error) {

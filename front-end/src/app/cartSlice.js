@@ -47,12 +47,15 @@ const cartSlice = createSlice({
                 }
             })
         },
+        imptiCart:(state,action)=>{
+            state.cart = [] ;
+        }
         
 
     }
 
 })
 
-export const {addToCart, increase , decreese} = cartSlice.actions ;
+export const {addToCart, increase , decreese , imptiCart} = cartSlice.actions ;
 
 export default cartSlice.reducer ;
