@@ -11,6 +11,25 @@ export const allProducts = async()=>{
     return data
 };
 
+// update product
+
+export const updateProd = async(values,ID) =>{
+    let token = getLocalStorage('token')
+    let {data} = await axios.put(`http://localhost:7000/auth/updateprod/${ID}`,values, {headers:{
+        "Authorization":token
+    }});
+    return data
+}
+// delete product 
+
+export const deleteProduct = async(ID) =>{
+    let token = getLocalStorage('token')
+    let {data} = await axios.delete(`http://localhost:7000/auth/deleteprod/${ID}`  , {headers:{
+        "Authorization" : token
+    }})
+    return data
+}
+
 // get product with _id from params 
 
 export const singleProd = async(ID)=>{
@@ -34,9 +53,17 @@ export const getCategory = async ()=>{
 } ;
 
 // get card
-
+export const myOrders = async()=>{
+    let token = getLocalStorage('token')
+    let{data} = await axios.get("http://localhost:7000/auth/myOrders"  , {headers:{
+        "Authorization":token}})
+    return data
+}
+//create shop cart
 export const bagCart = async (values)=>{
-    let{data} = await axios.post("http://localhost:7000/auth/creeteCart" , values)
+    let token = getLocalStorage('token')
+    let{data} = await axios.post("http://localhost:7000/auth/creeteCart" , values , {headers:{
+        "Authorization":token}})
     return data
 } ;
 
@@ -50,4 +77,6 @@ export const addCat = async (values)=>{
     }}) ;
     return data
 } ;
+
+
 

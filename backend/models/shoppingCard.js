@@ -5,11 +5,15 @@ const mongoose = require("mongoose");
 const shopCart = new mongoose.Schema({
 
     products:[
-       {prod: {
+       {
         type: mongoose.Types.ObjectId ,
         ref:"Product"
-   }}],
-    totalPrice : Number
+   }],
+    totalPrice : Number,
+    orderBy:{
+        type : mongoose.Types.ObjectId ,
+        ref:"User"
+    }
 })
 
 

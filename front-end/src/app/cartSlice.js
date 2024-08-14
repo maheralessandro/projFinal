@@ -49,6 +49,10 @@ const cartSlice = createSlice({
         },
         imptiCart:(state,action)=>{
             state.cart = [] ;
+        } ,
+
+        rmvElement :(state , action)=>{
+          state.cart = state.cart.filter((item)=> item._id !== action.payload)
         }
         
 
@@ -56,6 +60,6 @@ const cartSlice = createSlice({
 
 })
 
-export const {addToCart, increase , decreese , imptiCart} = cartSlice.actions ;
+export const {addToCart, increase , decreese , imptiCart , rmvElement} = cartSlice.actions ;
 
 export default cartSlice.reducer ;

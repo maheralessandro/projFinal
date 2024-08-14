@@ -9,7 +9,7 @@ let user = getLocalStorage('User');
 
 return token && user.role ==="admin" ?
 <Outlet/> 
-: <Navigate to ="/login"/>
+: <Navigate to ="/login" replace/>
 
 }
 

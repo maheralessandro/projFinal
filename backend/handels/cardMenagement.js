@@ -4,6 +4,10 @@ const Product = require('../models/productSchema') ;
 
 exports.creeteCart = async(req , res)=>{
     let {products , totalPrice} = req.body ;
+    let user = req.user;
+
+    // console.log(user);
+    
 
 
     // console.log(products);
@@ -23,7 +27,7 @@ exports.creeteCart = async(req , res)=>{
     
 
     try {
-        let newCart = new Cart({products , totalPrice:prixTot})
+        let newCart = new Cart({products , totalPrice:prixTot, orderBy:user?._id})
         await newCart.save() ;
         res.status(200).json({msg:'cart creeted'})
         
@@ -32,5 +36,22 @@ exports.creeteCart = async(req , res)=>{
         res.status(500).json({msg:'server error in creet cart'})
         
     }
+
+}
+
+
+exports.getCart = async(req,res)=>{
+
+    let {_id}= req.user;
+
+   await Cart.find({orderBy:_id}).populate('orderBy').populate("products")
+   .then((doc)=>{
+    res.status(200).json({msg:"my orders" , doc})
+   })
+   .catch((err)=>{
+    res.status(500).json({msg:"server error in get cart"})
+    console.log(err);
+    
+   })
 
 }

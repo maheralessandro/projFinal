@@ -60,10 +60,15 @@ exports.login = async (req , res) =>{
 exports.updatePassword = async(req,res)=>{
     let user = req.user ;
     
-    let {password , confirmPassword} = req.body ;
+    let {password , OldPassword ,confirmPassword} = req.body ;
 
     try{
         let match = bcrypt.compareSync(password , user.password) ;
+        let verifica = bcrypt.compareSync(OldPassword , user.password)
+
+        if(!verifica){
+            return res.status(400).json({msg:"password not correct"}) 
+        }
 
         if(match){
             return res.status(400).json({msg:"you enter an old password"})
