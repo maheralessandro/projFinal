@@ -4,7 +4,7 @@ const { verification } = require('../middelwers/verification');
 const { registerProd, updateProduct, deleteProduct, allProd, prodById } = require('../handels/prodManagement');
 const { registerCat, allCatt, deleteCat, updateCat } = require('../handels/categoryMenagement');
 const multer  = require('multer');
-const { creeteCart, getCart } = require('../handels/cardMenagement');
+const { creeteCart, getCart, getAllOrders } = require('../handels/cardMenagement');
 
 
 const authRouter = express.Router();
@@ -53,6 +53,7 @@ authRouter.put('/updateCat/:id' , updateCat)
 
 authRouter.post('/creeteCart', verification , creeteCart)
 authRouter.get('/myOrders',verification,getCart)
+authRouter.get('/allOrders',verification,getAllOrders)
 
 
 

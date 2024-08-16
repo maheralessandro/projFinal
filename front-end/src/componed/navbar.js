@@ -13,6 +13,12 @@ import ShoppingCart from './shoppingCard';
 import { useSelector } from 'react-redux';
 import HomeIcon from '@mui/icons-material/Home';
 import { getLocalStorage, removeLocalStorage } from '../helpers/localStorage';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -67,7 +73,22 @@ function NavbarScroll() {
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={()=>logout()} >
-                Logout
+              <List>
+          
+          <ListItem  >
+            <ListItemButton style={{ 
+            display:"flex" , justifyContent:"space-around"}}
+             >
+             <ListItemIcon >
+              <ListItemText primary="Logout"  
+              style={{textDecoration:"none",color:"black" , fontWeight:"bolder"}}/>
+             
+              </ListItemIcon>
+              <LogoutIcon/>
+            </ListItemButton>
+          </ListItem>
+     
+      </List>
               </NavDropdown.Item>
             </NavDropdown>
             <IconButton aria-label="cart" onClick={()=>navigate('/cart')}>

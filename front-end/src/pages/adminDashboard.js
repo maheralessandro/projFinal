@@ -82,7 +82,7 @@ const AdminDash = ()=>{
     {text:'Products' , link:"/admin",icon:<Inventory2Icon/>}, 
     {text:'Add_Category',link:"/admin/newCat",icon:<AddchartIcon/>},  
      {text:'Add_Product',link:"/admin/newProd",icon:<LibraryAddIcon/>},   
-     {text:'Orders',link:"/admin/orders",icon:<StoreIcon/>}]
+     {text:'Orders',link:"/admin/allOrders",icon:<StoreIcon/>}]
   const navigate = useNavigate();
   
   const handelLogout =()=>{

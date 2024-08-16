@@ -78,5 +78,14 @@ export const addCat = async (values)=>{
     return data
 } ;
 
+// get all orders
+
+export const allOrders = async()=>{
+    let token = getLocalStorage('token')
+    let{data} = await axios.get("http://localhost:7000/auth/allOrders"  , {headers:{
+        "Authorization":token}})
+    return data
+} ;
+
 
 

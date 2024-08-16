@@ -17,6 +17,7 @@ import { getLocalStorage } from './helpers/localStorage';
 import MyOrder from './componed/myOrder';
 import UpdatePas from './componed/updatePass';
 import UpdateProd from './componed/apdateProd';
+import AllOrders from './componed/order';
 
 function App() {
   let user = getLocalStorage("User");
@@ -49,6 +50,7 @@ function App() {
          <Route path='newCat' element={<RegisterCat/>}/>
          <Route index element={<Product/>}/>
          <Route path="newProd" element={<AddProd/>}/>
+         <Route path="allOrders" element={<AllOrders/>}/>
         </Route>
         </Route>
       </Routes>

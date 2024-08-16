@@ -54,4 +54,14 @@ exports.getCart = async(req,res)=>{
     
    })
 
-}
+};
+
+exports.getAllOrders = async(req,res)=>{
+    await Cart.find().populate("orderBy").populate("products")
+    .then((doc)=>{
+        res.status(200).json({msg:"all orders" , doc})
+    })
+    .catch((err)=>{
+        res.status(500).json({msg:"server error in get all orders"})
+    })
+};

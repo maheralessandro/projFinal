@@ -1,6 +1,11 @@
-import REACT , {useEffect, useState} from "react"
+import  {useEffect, useState} from "react"
 import ProdCard from "./prodCard";
-import { allProducts } from "../api/prodApi";
+import { allProducts, getCategory } from "../api/prodApi";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+
 
 
 
@@ -9,29 +14,106 @@ import { allProducts } from "../api/prodApi";
 
 const Product =()=>{
    const [product , setProduct] = useState([]) ;
+   const [cat , setCat] = useState([]) ;
+   const [category , setCategory] = useState("category");
+   const [filtred , setFiltred] = useState([]);
+   const [nome , setNome] = useState("name")
+   const [show, setShow] = useState(false);
 
+   const handleClose = () => setShow(false);
+   const handleShow = () => setShow(true);
+
+   
   
+   
+
+
+
+   const handelChange = (e)=>{
+    setCategory(e.target.value)
+    
+   }
+
+   const nameChange = (e) =>{
+    setNome(e.target.value)
+   }
   
    useEffect(()=>{
     allProducts()
     .then((file)=>{
      setProduct(file.doc)
+     setFiltred(file.doc)
+     
+     getCategory()
+     .then ((file)=>{
+         setCat(file.doc);
+     })
+     .catch((err)=>{
+         console.error(err);
+     })
     })
     .catch((err)=>{
         console.log(err);
     })
+   
    },[])
 
+   useEffect(()=>{
+    setFiltred(product.filter((item)=>{
+    
+     
+      if(category === "category" && nome==="name"  ){
+        return item
+      }
+      if(item.category?.nameCat === category)
+      {
+      return   item.category?.nameCat 
+      }
+      if(item.nameProdut === nome){
+        return item.nameProdut
+      }
+    }))
+   },[category,nome])
 
  
   return(
-      <div style={{display:"flex" , justifyContent:"space-around", flexWrap:"wrap", margin:"50px"}}>
+      <div>
 
-        
-        {product.map((element,index)=>{
+        <div>
+            <Button variant="primary" onClick={handleShow}>
+            <FilterAltIcon/>
+            </Button>
+
+      <Offcanvas show={show} onHide={handleClose} backdrop="static">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+           <Form.Select  aria-label="Default select example" onChange={handelChange}>
+           <option >category</option>
+            {cat.map((item,index)=>{
+                    return  <option value={item.nameCat} key={index}>{item.nameCat}</option>
+                           
+                })}
+            </Form.Select>
+            <Form.Select  aria-label="Default select example" onChange={nameChange}>
+           <option >name</option>
+            {filtred.length >0 && filtred.map((item,index)=>{
+                    return  <option value={item.nameProdut} key={index}>{item.nameProdut}</option>
+                           
+                })}
+            </Form.Select>
+        </Offcanvas.Body>
+      </Offcanvas>
+           
+            
+          
+        </div>
+        <div style={{display:"flex" , justifyContent:"space-around", flexWrap:"wrap", margin:"50px"}}>
+        {filtred.length=== 0 ? <h3>No product found</h3> : filtred.map((element,index)=>{
           return <ProdCard prod={element}  key={index}/>
         })}
-        
+        </div>
       </div>
     )
   }
