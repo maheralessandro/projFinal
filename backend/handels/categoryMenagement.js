@@ -1,13 +1,12 @@
-const { json } = require('express');
 const Category = require('../models/categorySchema')
 
 
 exports.registerCat = async(req , res) =>{
-    let {nameCat} = req.body ;
+    let {nameCat , subCat} = req.body ;
     console.log(nameCat);
 
     try {
-        if(!nameCat){
+        if(!nameCat || !subCat){
             return res.status(400).json({msg:"nameCat is required"})
         }
         let newCategory = new Category(req.body) ;

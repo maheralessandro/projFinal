@@ -6,7 +6,7 @@ const Category = require('../models/categorySchema');
 
 
 exports.registerProd = async (req , res) =>{
-    let{ nameProdut , price , quantity , productDescription , nameCat} = req.body ;
+    let{ nameProdut , price , quantity , productDescription , nameCat , subCat} = req.body ;
    
     let user = req.user ;
     let picture =req.files
@@ -15,7 +15,7 @@ exports.registerProd = async (req , res) =>{
     try{
 
         let catID = await Category.findOne({nameCat})
-        if( !nameProdut || !price || !quantity || !productDescription ||    !picture){
+        if( !nameProdut || !price || !quantity || !productDescription ||    !picture || !subCat){
             return res.status(400).json({msg : "is required"})
         }
  
@@ -24,7 +24,7 @@ exports.registerProd = async (req , res) =>{
             return item.filename
         })
         
-        let newProdact = new Product({ nameProdut , price , quantity , productDescription ,category:catID._id, postedBy: user._id , image: data});
+        let newProdact = new Product({ nameProdut , price , quantity , productDescription, subCat ,category:catID._id, postedBy: user._id , image: data});
         await newProdact.save() ;
 
         

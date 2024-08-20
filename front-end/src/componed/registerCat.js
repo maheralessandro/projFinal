@@ -12,9 +12,13 @@ import {toast} from "react-toastify"
 
 const RegisterCat = () => {
     const [cat , setCat] = useState({
-        nameCat : ""
+        nameCat : "" ,
+        
     })
 
+    const [sub , setSub] = useState("") ;
+
+    const [subCat , setSubCat]=useState([]);
     const navigate = useNavigate()
    
     const errorNotify = (value) => toast.error(value);
@@ -22,12 +26,26 @@ const RegisterCat = () => {
 
     const handelChange =(e)=>{
         setCat({...cat , [e.target.name]:e.target.value})
+       
     }
-    console.log(cat.nameCat);
 
+    const selectChange =(e)=>{
+        // setSubCat([...subCat , e.target.value])
+        setSub({...sub , [e.target.name]:e.target.value})
+    }
+    console.log(sub.sub);
+
+    const handelAdd =(e)=>{
+        e.preventDefault();
+        setSubCat([...subCat , sub.sub])
+    }
+    console.log(subCat);
+    
     const handelSubmit=(e)=>{
         e.preventDefault();
-        addCat({nameCat : cat.nameCat})
+        addCat({nameCat : cat.nameCat ,
+            subCat : subCat
+        })
         .then((doc)=>{
             
             sucessNotify(doc.msg);
@@ -46,7 +64,7 @@ const RegisterCat = () => {
             margin: "10%", 
          display:"flex" , justifyContent:"space-between", alignItems:"center", flexWrap:"wrap"}}>
            <div style={{ width:"50%" , height:"400px" , backgroundColor:"aquamarine", display:"flex", justifyContent:"center",alignItems:"center"}}>
-           <h1>SingUp</h1>
+           <h1>New Category</h1>
            </div>
             
             <Form>
@@ -55,6 +73,19 @@ const RegisterCat = () => {
               <Form.Group className="mb-3" controlId="formGridAddress1" >
                 <Form.Label>Name categori</Form.Label>
                 <Form.Control placeholder="Name categori" name="nameCat" onChange={handelChange}/>
+                <Form.Label>Sub categori</Form.Label>
+                <Form.Control placeholder="Sub categori" name="sub" onChange={selectChange}/>
+                <Button variant="primary" type="submit" onClick={(e)=>handelAdd(e)}>
+                add
+              </Button>
+                {/* <select multiple  onChange={(e)=>selectChange(e)}>
+                    <option value="purfum">purfum</option>
+                    <option value="maquillage">maquillage</option>
+                    <option value="xbox">xbox</option>
+                </select> */}
+                {/* <input type='checkbox' value="purfum" onChange={(e)=>selectChange(e)}/> purfum
+                <input type='checkbox' value="maquillage" onChange={(e)=>selectChange(e)}/> maquillage
+                <input type='checkbox' value="xbox" onChange={(e)=>selectChange(e)}/> xbox */}
               </Form.Group>
         
               

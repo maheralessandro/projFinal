@@ -4,7 +4,12 @@ const categorySchema = new mongoose.Schema ({
     nameCat: {
         type : String ,
         required : true
-    } 
+    } ,
+
+    subCat : {
+        type : [String] ,
+        required : true
+    }
 
 })
 

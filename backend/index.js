@@ -9,7 +9,7 @@ const app = express() ;
 
 require('dotenv').config();
 
-let port = process.env.PORT ;
+let port =  process.env.PORT ;
 connectDB() ;
 app.use(cors({origin:'http://localhost:3000'})) ;
 app.use(express.static(path.join(__dirname, 'public')));
@@ -21,5 +21,5 @@ app.listen(port , (err)=>{
     if(err){
         console.error(err);
     }
-    console.log(`server run in port ${7000}`);
+    console.log(`server run in port ${port}`);
 })

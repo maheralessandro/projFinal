@@ -17,7 +17,7 @@ const Product =()=>{
    const [cat , setCat] = useState([]) ;
    const [category , setCategory] = useState("category");
    const [filtred , setFiltred] = useState([]);
-   const [nome , setNome] = useState("name")
+   const [sub , setSub] = useState("sub category")
    const [show, setShow] = useState(false);
 
    const handleClose = () => setShow(false);
@@ -26,7 +26,8 @@ const Product =()=>{
    
   
    
-
+  
+  
 
 
    const handelChange = (e)=>{
@@ -34,8 +35,8 @@ const Product =()=>{
     
    }
 
-   const nameChange = (e) =>{
-    setNome(e.target.value)
+   const subChange = (e) =>{
+    setSub(e.target.value)
    }
   
    useEffect(()=>{
@@ -57,23 +58,26 @@ const Product =()=>{
     })
    
    },[])
+   
+   
 
    useEffect(()=>{
     setFiltred(product.filter((item)=>{
     
      
-      if(category === "category" && nome==="name"  ){
+      if(category === "category"){
         return item
       }
       if(item.category?.nameCat === category)
       {
       return   item.category?.nameCat 
       }
-      if(item.nameProdut === nome){
-        return item.nameProdut
-      }
+      
     }))
-   },[category,nome])
+   },[category])
+
+   
+  //  console.log(filtred[0].category.subCat);
 
  
   return(
@@ -93,14 +97,18 @@ const Product =()=>{
            <option >category</option>
             {cat.map((item,index)=>{
                     return  <option value={item.nameCat} key={index}>{item.nameCat}</option>
+                            
                            
                 })}
             </Form.Select>
-            <Form.Select  aria-label="Default select example" onChange={nameChange}>
-           <option >name</option>
-            {filtred.length >0 && filtred.map((item,index)=>{
-                    return  <option value={item.nameProdut} key={index}>{item.nameProdut}</option>
+            <Form.Select  aria-label="Default select example" onChange={subChange}>
+           <option disabled>sub category</option>
+            {/* {filtred.length >0 && filtred.map((item,index)=>{
+                    return  <option value={item.subCat} key={index}>{item.subCat}</option>
                            
+                })} */}
+                {category === "category" ? <option disabled> No sub category existing ..</option> :filtred[0]?.category.subCat.map((el,index)=>{
+                  return <option  key={index} >{el}</option>
                 })}
             </Form.Select>
         </Offcanvas.Body>

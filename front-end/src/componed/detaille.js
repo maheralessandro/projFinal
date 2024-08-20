@@ -59,26 +59,29 @@ function Detail() {
   return (
    <div style={{display : 'flex' , alignItems : "center" , flexDirection:"column" ,marginTop :"50px"}}>
     <div>
-    <Carousel data-bs-theme="dark" style={{ width: '50rem' }}>
+    <Carousel data-bs-theme="dark" style={{ width: '18rem' }}>
     {
     images.map((item,index)=>{
       return <Carousel.Item key={index}>
+     <div style={{display:"flex", justifyContent:"center"}}>
       <img
-        className="d-block w-100"
+       
         src={`http://localhost:3000/${item}`}
         alt={`index slide`}
       />
-      
+      </div>
     </Carousel.Item>
     })} 
     </Carousel>
     </div>
-    <div style={{ width:"60rem", display:"flex" , justifyContent:"space-around" ,alignItems:"flex-end", padding:"20px"}}>
+
+
+    <div style={{ width:"80%",display:"flex" , justifyContent:"space-around" ,alignItems:"flex-end", padding:"20px"}}>
     
       
       <Card
           bg="Light"
-          style={{ width: '50rem' }}
+          style={{ width: "100%" }}
           className="mb-2"
         >
           <Card.Header>name: {prod.nameProdut}</Card.Header>

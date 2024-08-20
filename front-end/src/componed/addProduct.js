@@ -32,6 +32,7 @@ const AddProd = () =>{
         quantity : null ,
         productDescription : '' ,
         nameCat : '' ,
+        subCat : [] ,
         picture:""
     }) ;
 
@@ -62,6 +63,7 @@ const AddProd = () =>{
         formData.append("quantity", addProd.quantity)
         formData.append("productDescription", addProd.productDescription)
         formData.append("nameCat", addProd.nameCat)
+        formData.append("subCat", addProd.subCat)
         // formData.append("picture", addProd.picture)
 
         if (addProd.picture.length != 0) {
@@ -81,6 +83,13 @@ const AddProd = () =>{
             errorNotify(err.response.data.msg)
         })
     }
+
+  //  console.log(cat.filter((item)=>{
+  //   return item.nameCat === addProd.nameCat
+  // })[0]?.subCat);
+   
+    
+    
 
 
 
@@ -138,7 +147,26 @@ const AddProd = () =>{
             <option>Open this select category</option>
             {cat.map((item,index)=>{
                     return <option key={index}>{item.nameCat}</option>
-                })}
+                             
+                           })} 
+                            
+              
+            {/* <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option> */}
+          </Form.Select>
+
+          {/* sous categorie*/}
+
+          <Form.Select aria-label="Floating label select example" name="subCat" onChange={handelChange} >
+            <option>Open this select sub category</option>
+            {cat.filter((item)=>{
+              return item.nameCat === addProd.nameCat
+            })[0]?.subCat.map((el,index)=>{
+             return <option key={index} >{el}</option>
+            })}
+                            
+              
             {/* <option value="1">One</option>
             <option value="2">Two</option>
             <option value="3">Three</option> */}
