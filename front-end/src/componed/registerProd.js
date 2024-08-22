@@ -17,13 +17,20 @@ const Product =()=>{
    const [cat , setCat] = useState([]) ;
    const [category , setCategory] = useState("category");
    const [filtred , setFiltred] = useState([]);
+   const [subList , setSubList] = useState([]);
    const [sub , setSub] = useState("sub category")
    const [show, setShow] = useState(false);
 
    const handleClose = () => setShow(false);
    const handleShow = () => setShow(true);
 
+  //  console.log(product);
    
+  
+
+
+
+  
   
    
   
@@ -48,6 +55,7 @@ const Product =()=>{
      getCategory()
      .then ((file)=>{
          setCat(file.doc);
+        
      })
      .catch((err)=>{
          console.error(err);
@@ -60,21 +68,40 @@ const Product =()=>{
    },[])
    
    
+   
+  
 
    useEffect(()=>{
+
+    setSubList(cat.find((item)=>item.nameCat === category))
     setFiltred(product.filter((item)=>{
     
      
       if(category === "category"){
         return item
       }
-      if(item.category?.nameCat === category)
-      {
-      return   item.category?.nameCat 
+      if(item.category?.nameCat === category && sub === "sub category" ){
+        return item.category?.nameCat
       }
+
+       
+      
+        
+        if(item.category?.nameCat === category && item.subCat=== sub ){
+          
+          
+          return item
+           
+        }
+          
+          
+        
+      
+      
+      
       
     }))
-   },[category])
+   },[category,sub])
 
    
   //  console.log(filtred[0].category.subCat);
@@ -107,7 +134,7 @@ const Product =()=>{
                     return  <option value={item.subCat} key={index}>{item.subCat}</option>
                            
                 })} */}
-                {category === "category" ? <option disabled> No sub category existing ..</option> :filtred[0]?.category.subCat.map((el,index)=>{
+                {category === "category" ? <option disabled> No sub category existing ..</option> :subList?.subCat.map((el,index)=>{
                   return <option  key={index} >{el}</option>
                 })}
             </Form.Select>
@@ -117,7 +144,7 @@ const Product =()=>{
             
           
         </div>
-        <div style={{display:"flex" , justifyContent:"space-around", flexWrap:"wrap", margin:"50px"}}>
+        <div style={{display:"flex" , justifyContent:"space-around", flexWrap:"wrap", marginTop:"100px"}}>
         {filtred.length=== 0 ? <h3>No product found</h3> : filtred.map((element,index)=>{
           return <ProdCard prod={element}  key={index}/>
         })}

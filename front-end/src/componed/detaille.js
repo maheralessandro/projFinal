@@ -64,8 +64,8 @@ function Detail() {
     images.map((item,index)=>{
       return <Carousel.Item key={index}>
      <div style={{display:"flex", justifyContent:"center"}}>
-      <img
-       
+      <img height={280}
+        className="d-block w-60"
         src={`http://localhost:3000/${item}`}
         alt={`index slide`}
       />
@@ -76,33 +76,36 @@ function Detail() {
     </div>
 
 
-    <div style={{ width:"80%",display:"flex" , justifyContent:"space-around" ,alignItems:"flex-end", padding:"20px"}}>
+    <div style={{ display:"flex" , justifyContent:"space-around", width:"80%",alignItems:"flex-end" , paddingTop:"50px"}}>
     
       
       <Card
           bg="Light"
-          style={{ width: "100%" }}
+          style={{ width: "80%" }}
           className="mb-2"
+          
         >
           <Card.Header>name: {prod.nameProdut}</Card.Header>
-           <Card.Body style={{display:"flex" , justifyContent:"space-around" ,alignItems:"flex-end"}}>
+           <Card.Body style={{display:"flex" ,flexDirection:"column", justifyContent:"space-around" }}>
             <div>
             <Card.Title> category: {prod.category?.nameCat} </Card.Title>
             <Card.Text>
             description: {prod.productDescription}
             </Card.Text>
             <hr/>
+            </div>
+            <div style={{ display:"flex", flexDirection:"column"}}>
             <p>price: {prod.price} $</p>
             <p>stock: {prod.quantity} </p>
-            </div>
-            <div>
+            
+            
               {prod.postedBy?._id === user?._id ?
-                <div>
+                <div style={{ display:"flex" , justifyContent:"space-around"}}>
                   <UpdateIcon sx={{fontSize:"60px" , cursor : "pointer"}} onClick={()=>navigate(`/updateprod/${prod._id}`)}/>
                   <DeleteForeverIcon sx={{fontSize:"60px" , cursor : "pointer"}} onClick={()=>handelDelete()}/>
-                  <AddShoppingCartIcon sx={{fontSize:"60px" , cursor : "pointer"}} onClick={()=>dispatch(addToCart(prod))}/>
+                  
                 </div>
-            :<div>
+            :<div style={{display:"flex" ,  justifyContent:"flex-end"}}>
               <AddShoppingCartIcon sx={{fontSize:"60px" , cursor : "pointer"}} onClick={()=>dispatch(addToCart(prod))}/>
             </div>
           }
