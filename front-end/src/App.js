@@ -18,13 +18,15 @@ import MyOrder from './componed/myOrder';
 import UpdatePas from './componed/updatePass';
 import UpdateProd from './componed/apdateProd';
 import AllOrders from './componed/order';
+import Footer from './componed/footer';
 
 
 function App() {
   let user = getLocalStorage("User");
   let location = useLocation();
   return (
-    <div className='app'>
+    <>
+    <div className='app' style={{marginBottom:"100px"}}>
       {user?.role ==="user" || !location.pathname.includes('admin') ?
   <NavbarScroll />:null}
       
@@ -55,8 +57,14 @@ function App() {
         </Route>
         </Route>
       </Routes>
-     
+      
+    
+   
     </div>
+    
+    <Footer/>
+    
+    </>
   );
 }
 

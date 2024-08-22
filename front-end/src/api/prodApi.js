@@ -7,7 +7,7 @@ import { getLocalStorage } from "../helpers/localStorage";
 
 export const allProducts = async()=>{
 
-    let {data} = await axios.get("http://localhost:7000/auth/allProd");
+    let {data} = await axios.get(`${process.env.REACT_APP_URI}/auth/allProd`);
     return data
 };
 
@@ -15,7 +15,7 @@ export const allProducts = async()=>{
 
 export const updateProd = async(values,ID) =>{
     let token = getLocalStorage('token')
-    let {data} = await axios.put(`http://localhost:7000/auth/updateprod/${ID}`,values, {headers:{
+    let {data} = await axios.put(`${process.env.REACT_APP_URI}/auth/updateprod/${ID}`,values, {headers:{
         "Authorization":token
     }});
     return data
@@ -24,7 +24,7 @@ export const updateProd = async(values,ID) =>{
 
 export const deleteProduct = async(ID) =>{
     let token = getLocalStorage('token')
-    let {data} = await axios.delete(`http://localhost:7000/auth/deleteprod/${ID}`  , {headers:{
+    let {data} = await axios.delete(`${process.env.REACT_APP_URI}/auth/deleteprod/${ID}`  , {headers:{
         "Authorization" : token
     }})
     return data
@@ -33,14 +33,14 @@ export const deleteProduct = async(ID) =>{
 // get product with _id from params 
 
 export const singleProd = async(ID)=>{
-    let {data} = await axios.get(`http://localhost:7000/auth/prodById/${ID}`)
+    let {data} = await axios.get(`${process.env.REACT_APP_URI}/auth/prodById/${ID}`)
     return data
 }
 // add a new product
 export const addProds = async (values)=>{
 
     let token = getLocalStorage('token')
-    let {data} = await axios.post("http://localhost:7000/auth/addprod" , values,{headers:{
+    let {data} = await axios.post(`${process.env.REACT_APP_URI}/auth/addprod` , values,{headers:{
         "Authorization":token,
         'Content-Type': 'multipart/form-data'
     }}) ;
@@ -48,21 +48,21 @@ export const addProds = async (values)=>{
 } ;
 
 export const getCategory = async ()=>{
-    let{data} = await axios.get("http://localhost:7000/auth/allCatt")
+    let{data} = await axios.get(`${process.env.REACT_APP_URI}/auth/allCatt`)
     return data
 } ;
 
 // get card
 export const myOrders = async()=>{
     let token = getLocalStorage('token')
-    let{data} = await axios.get("http://localhost:7000/auth/myOrders"  , {headers:{
+    let{data} = await axios.get(`${process.env.REACT_APP_URI}/auth/myOrders`  , {headers:{
         "Authorization":token}})
     return data
 }
 //create shop cart
 export const bagCart = async (values)=>{
     let token = getLocalStorage('token')
-    let{data} = await axios.post("http://localhost:7000/auth/creeteCart" , values , {headers:{
+    let{data} = await axios.post(`${process.env.REACT_APP_URI}/auth/creeteCart`  , values , {headers:{
         "Authorization":token}})
     return data
 } ;
@@ -72,7 +72,7 @@ export const bagCart = async (values)=>{
 export const addCat = async (values)=>{
 
     let token = getLocalStorage('token')
-    let {data} = await axios.post("http://localhost:7000/auth/addcat" , values,{headers:{
+    let {data} = await axios.post(`${process.env.REACT_APP_URI}/auth/addcat` , values,{headers:{
         "Authorization":token
     }}) ;
     return data
@@ -82,7 +82,7 @@ export const addCat = async (values)=>{
 
 export const allOrders = async()=>{
     let token = getLocalStorage('token')
-    let{data} = await axios.get("http://localhost:7000/auth/allOrders"  , {headers:{
+    let{data} = await axios.get( `${process.env.REACT_APP_URI}/auth/allOrders`  , {headers:{
         "Authorization":token}})
     return data
 } ;
